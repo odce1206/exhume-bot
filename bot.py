@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 from exhume import chargen
 from modelos.char import Char
-import random
+import dice
 
 # STEP 0:
 conf = load_dotenv()
@@ -18,6 +18,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', description=description, intents=intents)
+
 
 @bot.event
 async def on_ready() -> None:
@@ -38,6 +39,11 @@ async def exchar(ctx):
     embed.set_author(name= "=== Exhume ===", url = "https://rolepersecond.itch.io/exhume-esp-micro-fantasy-rpg")
     embed.set_footer(text="Bot Generador de PJs por: sudojar | Exhume por: Irvin Morales", icon_url="https://www.iconsdb.com/icons/preview/white/wizard-xxl.png")
     await ctx.send(embed=embed)
+
+
+@bot.command()
+async def roll(ctx, roll: str):
+    await ctx.send(dice.roll(roll))
 
 def main() -> None:
     # client.add_command(exchar)
